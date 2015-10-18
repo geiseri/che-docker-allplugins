@@ -1,6 +1,6 @@
 FROM codenvy/shellinabox
 
-ENV CHE_VERSION="3.12.2" \
+ENV CHE_VERSION="3.12.5.2" \
     MAVEN_VERSION=3.2.2 \
     JAVA_VERSION=8u45 \
     JAVA_VERSION_PREFIX=1.8.0_45 \
@@ -275,6 +275,10 @@ RUN cp -r /home/user/repo/assembly-sdk/target/assembly-sdk-$CHE_VERSION/assembly
     sudo rm -rf /home/user/.m2/repository/* && \
     sudo rm -rf /home/user/repo && \
     sudo chmod 757 -R /home/user/che
+
+# link up host docker
+RUN sudo groupadd --gid 111 docker && \
+    sudo usermod -a -G docker user
 
 # Initial properties file
 ADD che.properties /home/user/.che/che.properties
